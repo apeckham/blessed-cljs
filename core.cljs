@@ -22,6 +22,10 @@
   "enter"
   (fn [_ _] (.. box (setContent "wow")) (.. box (setLine 1 "bar")) (.. box (insertLine 1 "foo")) (.. screen render))))
 
+(def x (atom 0))
+
+(js/setInterval (fn [] (swap! x inc) (.. box (setContent (str @x))) (.. screen render)) 1000)
+
 (.. screen (key #js ["escape" "q" "C-c"] (fn [_ _] (js/process.exit 0))))
 
 (.. box focus)
